@@ -3,12 +3,13 @@ import contacts from './data.js';
 export const findContacts = (needle = 'query') => {
   const results = contacts.filter((contact) => {
     const values = Object.values(contact);
-    // [1, 'Carol', 'Carolson', '0741000000',  'carol@carol.ro']
+    // [1, 'Carol', 'Carolson', '0744', 'caolr@carol.ro']
 
     const haystack = values.reduce((haystack, value) => {
       if (typeof value === 'string') {
         haystack += value;
       }
+
       return haystack;
     }, '');
 
@@ -17,8 +18,6 @@ export const findContacts = (needle = 'query') => {
     }
 
     return false;
-    // // trim() elimina spatiile goale de dinainte si dupa "needle"
-    // return needle.trim() === contact.name;
   });
 
   return results;
@@ -27,4 +26,31 @@ export const findContacts = (needle = 'query') => {
 export const createContact = (contact) => {
   // push mutates
   contacts.push(contact);
+};
+
+export const deleteContact = (contactId) => {
+  let contactIndex = -1;
+
+  for (let i = 0; i < contacts.length; i++) {
+    const contact = contacts[i];
+
+    if (contactId === contact.id) {
+      contactIndex = i;
+
+      break;
+    }
+  }
+
+  if (contactIndex >= 0) {
+    // splice mutates
+    contacts.splice(contactIndex, 1);
+  }
+};
+
+export const findContact = (contactId) => {
+  const contact = contacts.find((contact) => {
+    return contact.id === Number(contactId);
+  });
+
+  return contact;
 };
