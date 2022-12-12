@@ -1,7 +1,13 @@
 import { addMessage, clearMessages } from './notificationBar.js';
-import { createContact, deleteContact, findContact } from './query.js';
+import {
+  createContact,
+  createPet,
+  deleteContact,
+  findContact,
+} from './query.js';
 import createMessage from './message.js';
-import { render as renderEditContact } from './editContacts.js';
+import { render as renderEditContact } from './editContact.js';
+import { render as renderPetForm } from './addPetForm.js';
 
 const stage = document.querySelector('.stage');
 
@@ -103,7 +109,7 @@ stage.addEventListener('submit', (event) => {
   }
 
   const form = target;
-  // scoatem elementele de DOM din form editContacts.js
+  // DOM elements (need .value)
   const { name, surname, phone, email, id } = form;
   const contactId = id.value;
   const contact = findContact(contactId);
@@ -120,7 +126,58 @@ stage.addEventListener('submit', (event) => {
   stage.innerHTML = '';
   clearMessages();
   addMessage(
-    createMessage(`Contact ${contact.name} ${contact.surname} was updated.`),
+    createMessage(`Contact ${contact.name} ${contact.surname} updated.`),
+  );
+});
+
+// add pet button
+stage.addEventListener('click', (event) => {
+  const { target } = event;
+
+  if (
+    target.nodeName !== 'BUTTON' ||
+    !target.classList.contains('add-pet-button')
+  ) {
+    return;
+  }
+
+  const button = target;
+  const parentElement = button.parentElement;
+  const contactId = parentElement.dataset.contactId;
+
+  // voi folositi metoda de la teme
+  stage.innerHTML = '';
+
+  stage.append(renderPetForm(contactId));
+});
+
+// create pet submit
+stage.addEventListener('submit', (event) => {
+  event.preventDefault();
+  const { target } = event;
+
+  if (target.nodeName !== 'FORM' || !target.classList.contains('add-pet')) {
+    return;
+  }
+
+  const form = target;
+  // DOM input elements
+  const { name, species, age, contactId } = form;
+
+  createPet(contactId.value, {
+    name: name.value,
+    species: species.value,
+    age: age.value,
+    id: Number(Date.now().toString().slice(-6)),
+  });
+
+  // cum putem sa afisam pet created for contact Carol
+
+  // folositi metoda de clear stage
+  stage.innerHTML = '';
+
+  addMessage(
+    createMessage(`Pet ${name.value} created for contact ${contactId.value}`),
   );
 });
 

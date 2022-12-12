@@ -4,9 +4,8 @@ export const addMessage = (messageElement) => {
   notificationBar.append(messageElement);
 };
 
-// Sterge mesajele afisate
 export const clearMessages = () => {
-  notificationBar.innerHTML = ``;
+  notificationBar.innerHTML = '';
 };
 
 export default notificationBar;
