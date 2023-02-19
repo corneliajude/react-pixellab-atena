@@ -5,15 +5,19 @@ export const findContacts = (needle = 'query') => {
     const values = Object.values(contact);
     // [1, 'Carol', 'Carolson', '0744', 'caolr@carol.ro']
 
-    const haystack = values.reduce((haystack, value) => {
-      if (typeof value === 'string') {
-        haystack += value;
-      }
+    const haystack = values
+      .reduce((haystack, value) => {
+        if (typeof value === 'string') {
+          haystack += value;
+        }
 
-      return haystack;
-    }, '');
+        return haystack;
+      }, '')
+      .toLowerCase()
+      .replace(/\s/g, ''); // Convert the haystack to lowercase and replace whitespaces globally
 
-    if (haystack.includes(needle)) {
+    if (haystack.includes(needle.toLowerCase().replace(/\s/g, ''))) {
+      // Convert the needle to lowercase and replace whitespaces globally
       return true;
     }
 

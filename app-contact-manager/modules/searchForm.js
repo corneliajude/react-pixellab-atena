@@ -1,7 +1,7 @@
 import { addMessage, clearMessages } from './notificationBar.js';
 import { findContacts } from './query.js';
 import createMessage from './message.js';
-import { pluralize } from './utils.js';
+import { clearStage, pluralize } from './utils.js';
 import { render } from './contact.js';
 import stage from './stage.js';
 
@@ -21,7 +21,7 @@ searchForm.addEventListener('submit', (event) => {
   }
 
   clearMessages();
-  stage.innerHTML = '';
+  clearStage();
 
   const contacts = findContacts(queryString);
   const contactsCount = contacts.length;

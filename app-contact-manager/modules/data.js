@@ -4,14 +4,14 @@ export default [
     name: 'Carol',
     surname: 'Carolson',
     phone: '0741000000',
-    email: 'carol@carol.ro',
+    email: 'Carol@Carol.ro',
   },
   {
     id: 2,
     name: 'Larry',
     surname: 'Larryson',
     phone: '0741000001',
-    email: 'larry@larryson.ro',
+    email: 'Larry@Larryson.ro',
     pets: [
       {
         id: 1,
@@ -26,7 +26,7 @@ export default [
     name: 'Stela',
     surname: 'Stevenson',
     phone: '0741000002',
-    email: 'stela@stevenson.ro',
+    email: 'Stela@Stevenson.ro',
     pets: [
       {
         id: 1,
